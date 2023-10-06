@@ -1,6 +1,5 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { currentUser } from "@clerk/nextjs";
-import { get } from "http";
 const f = createUploadthing();
 
 const getUser = async () => await currentUser(); // Fake auth function

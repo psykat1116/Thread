@@ -34,7 +34,7 @@ export const sidebarLinks: sidebarLinkType[] = [
   },
   {
     imgURL: "/assets/create.svg",
-    route: "/create-thread",
+    route: "/create",
     label: "Create Thread",
   },
   {

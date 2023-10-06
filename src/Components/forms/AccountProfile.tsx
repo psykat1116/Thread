@@ -13,12 +13,14 @@ import {
 } from "@/Components/ui/form";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidation } from "@/lib/Validation/user";
 import * as z from "zod";
 import { isBase64Image } from "@/lib/utils";
-import { useUploadThing } from "@/lib/Validation/uploadthing";
+import { useUploadThing } from "@/lib/uploadthing";
+import { updateUser } from "@/lib/actions/user.actions";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface AccountProfileProps {
   user: {
@@ -33,6 +35,8 @@ export interface AccountProfileProps {
 }
 
 const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("media");
   const form = useForm({
@@ -54,7 +58,19 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
         values.profile_photo = imgRes[0].url || "";
       }
     }
-    // TODO: Update user data
+    await updateUser({
+      username: values.username,
+      name: values.name,
+      bio: values.bio,
+      image: values.profile_photo,
+      userId: user.id,
+      path: pathname,
+    });
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
+    }
   }
 
   const handleImage = (
@@ -117,6 +133,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -136,6 +153,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -174,6 +192,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
