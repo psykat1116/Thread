@@ -107,8 +107,8 @@ const ThreadCard = ({
             </div>
           </div>
         </div>
-        // TODO: Delete Thread // TODO: Show comment Logos
       </div>
+      {/** delete thread and show comment logos */}
       {!isComment && community && (
         <Link
           href={`/communities/${community.id}`}
