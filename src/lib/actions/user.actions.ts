@@ -119,11 +119,11 @@ export async function getActivity(userId: string) {
     const userThreads = await Thread.find({ author: userId });
     const childThreadIds = userThreads.reduce((acc, thread) => {
       return acc.concat(thread.children);
-    },[]);
-    const replies = await Thread.find(
-      { _id: { $in: childThreadIds } },
-      { author: { $in: childThreadIds } }
-    ).populate({
+    }, []);
+    const replies = await Thread.find({
+      _id: { $in: childThreadIds },
+      author: { $ne: userId },
+    }).populate({
       path: "author",
       model: User,
       select: "_id name image",
@@ -131,6 +131,6 @@ export async function getActivity(userId: string) {
 
     return replies;
   } catch (error: any) {
-    throw new Error(`Failed to fetch activity: ${error.meassage}`);
+    throw new Error(`Failed to fetch activity: ${error}`);
   }
 }
