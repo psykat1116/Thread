@@ -1,7 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import '../../app/globals.css'
+import "../../app/globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +22,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${poppins.className} bg-dark-1`}>{children}</body>
+        <body className={`${poppins.className} bg-dark-1`}>
+          <div className="w-full flex justify-center items-center min-h-screen">
+            {children}
+          </div>
+        </body>
       </html>
     </ClerkProvider>
   );
