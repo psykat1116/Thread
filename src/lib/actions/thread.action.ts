@@ -1,10 +1,9 @@
 "use server";
 import { connectToDB } from "../mongoose";
 import Thread from "../models/thread.model";
+import Community from "../models/community.model";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
-import { threadId } from "worker_threads";
-import { text } from "stream/consumers";
 
 export interface ThreadParamsType {
   text: string;
@@ -24,7 +23,7 @@ export async function createThread({
     const createdthread = await Thread.create({
       text,
       author,
-      community: null,
+      community: communityId,
     });
     await User.findByIdAndUpdate(author, {
       $push: { threads: createdthread._id },
