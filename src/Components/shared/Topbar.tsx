@@ -11,7 +11,7 @@ const Topbar = () => {
   return (
     <nav className="topbar shadow-lg">
       <Link href="/" className="flex items-center gap-4">
-        <Image src="/assets/logo.svg" alt="logo" width={28} height={28} />
+        <Image src="/logo.png" alt="logo" width={35} height={35} />
         <p className="text-heading3-bold text-light-1 max-xs:hidden">Threads</p>
       </Link>
       <div className="flex items-center gap-1">

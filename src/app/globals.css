@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
 @layer components {
   /* main */
   .main-container {
@@ -79,7 +84,7 @@
   }
 
   .leftsidebar_link {
-    @apply relative flex justify-start gap-4 rounded-lg p-4;
+    @apply relative flex justify-between gap-4 rounded-lg p-4;
   }
 
   .pagination {

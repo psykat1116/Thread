@@ -12,7 +12,7 @@ const LeftSidebar = () => {
   const { userId } = useAuth();
   return (
     <section className="custom-scrollbar leftsidebar">
-      <div className="flex w-full flex-1 flex-col gap-6 px-6">
+      <div className="flex w-full flex-1 flex-col gap-6 px-4">
         {sidebarLinks.map((link: sidebarLinkType) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) ||
@@ -26,34 +26,36 @@ const LeftSidebar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar_link ${isActive && "bg-primary-500"}`}
+              className={`leftsidebar_link ${
+                isActive ? "bg-primary-500" : "bg-zinc-900"
+              } items-center`}
             >
+              <p className="text-light-1 max-lg:hidden">{link.label}</p>
               <Image
                 src={link.imgURL}
                 alt={link.label}
                 width={24}
                 height={24}
               />
-              <p className="text-light-1 max-lg:hidden">{link.label}</p>
             </Link>
           );
         })}
       </div>
-      <div className="mt-10 px-6">
+      <div className="mt-10 bg-zinc-900 mx-4 rounded-md">
         <SignedIn>
           <SignOutButton
             signOutCallback={() => {
               return router.push("/sign-in");
             }}
           >
-            <div className="flex cursor-pointer gap-4 p-4">
+            <div className="flex cursor-pointer gap-4 p-4 justify-between items-center">
+              <p className="max-lg:hidden text-rose-600">Logout</p>
               <Image
                 src="/assets/logout.svg"
                 alt="logout"
                 width={24}
                 height={24}
               />
-              <p className="text-light-2 max-lg:hidden">Logout</p>
             </div>
           </SignOutButton>
         </SignedIn>
